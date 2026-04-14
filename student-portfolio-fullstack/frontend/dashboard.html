@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Student Portfolio Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="dashboard">
+  <div class="layout-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-logo">SP</div>
+        <div>
+          <div class="brand">Student Portfolio Studio</div>
+          <div class="brand-subtitle">Java + DB assignment version</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a class="nav-link active" href="dashboard.html">Dashboard</a>
+        <a class="nav-link" href="tracker.html">Financial Tracker</a>
+        <button class="nav-link" data-action="logout" type="button">Logout</button>
+      </nav>
+
+      <div class="sidebar-card">
+        <strong>Quick note</strong>
+        <p>This version keeps a polished look but still feels believable as a student-made university submission.</p>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>Portfolio dashboard</h1>
+          <p>Overview of investment performance, growth and asset distribution.</p>
+        </div>
+        <div class="topbar-actions">
+          <span class="user-pill"><span class="avatar">S</span> <span data-user-name>Student User</span></span>
+          <span class="muted" data-today-label></span>
+        </div>
+      </header>
+
+      <section class="grid cards-4">
+        <article class="card">
+          <div class="metric-label">Total invested</div>
+          <div class="metric-number" data-summary="totalInvestment">$0.00</div>
+          <span class="metric-trend neutral">Seeded from database</span>
+        </article>
+        <article class="card">
+          <div class="metric-label">Current market value</div>
+          <div class="metric-number" data-summary="marketValue">$0.00</div>
+          <span class="metric-trend positive" data-summary="profitBadge">▲ 0.00%</span>
+        </article>
+        <article class="card">
+          <div class="metric-label">Net profit / loss</div>
+          <div class="metric-number" data-summary="totalProfit">$0.00</div>
+          <span class="metric-trend neutral">Calculated automatically</span>
+        </article>
+        <article class="card">
+          <div class="metric-label">Assets / top category</div>
+          <div class="metric-number"><span data-summary="totalAssets">0</span> assets</div>
+          <span class="metric-trend neutral">Top: <span data-summary="topCategory" style="margin-left: 6px;">-</span></span>
+        </article>
+      </section>
+
+      <section class="grid main-dashboard" style="margin-top: 20px;">
+        <article class="card chart-card">
+          <div class="chart-head">
+            <div>
+              <div class="metric-label">Growth snapshot</div>
+              <h3 class="table-title" style="font-size: 1.35rem;">Visual portfolio trend</h3>
+            </div>
+            <a class="btn-secondary" href="tracker.html">Manage assets</a>
+          </div>
+          <div class="chart-wrap">
+            <svg id="chartSvg" viewBox="0 0 960 320" preserveAspectRatio="none"></svg>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <div class="metric-label">Insights</div>
+              <h3 class="table-title">System observations</h3>
+            </div>
+          </div>
+          <div class="insight-list">
+            <div class="insight-item">
+              <h4>Auto summary</h4>
+              <p>Backend service calculates total investment, live market value, profit and average return from stored asset records.</p>
+            </div>
+            <div class="insight-item">
+              <h4>Student-style OOP design</h4>
+              <p>Model classes, repository interfaces, service classes and controllers are separated for clarity and marks.</p>
+            </div>
+            <div class="insight-item">
+              <h4>Local database support</h4>
+              <p>H2 file database is included, so your data stays saved locally when you run the backend again.</p>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="table-card" style="margin-top: 20px;">
+        <div class="table-head">
+          <div>
+            <div class="metric-label">Recent holdings</div>
+            <h3 class="table-title">Portfolio table preview</h3>
+          </div>
+          <a class="btn" href="tracker.html">Open full tracker</a>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Ticker</th>
+                <th>Category</th>
+                <th>Qty</th>
+                <th>Buy Price</th>
+                <th>Current Price</th>
+                <th>Return</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dashboardTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

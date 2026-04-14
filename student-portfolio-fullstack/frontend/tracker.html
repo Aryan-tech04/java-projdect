@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial Tracker | Student Portfolio Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body data-page="tracker">
+  <div class="layout-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <div class="brand-logo">SP</div>
+        <div>
+          <div class="brand">Student Portfolio Studio</div>
+          <div class="brand-subtitle">CRUD tracker + summary panel</div>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <a class="nav-link" href="dashboard.html">Dashboard</a>
+        <a class="nav-link active" href="tracker.html">Financial Tracker</a>
+        <button class="nav-link" data-action="logout" type="button">Logout</button>
+      </nav>
+
+      <div class="sidebar-card">
+        <strong>Tracker features</strong>
+        <p>Add, edit, filter and delete assets. The database and Java backend update the values instantly.</p>
+      </div>
+    </aside>
+
+    <main class="content-area">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1>Financial tracker</h1>
+          <p>Manage portfolio records and watch the summary update automatically.</p>
+        </div>
+        <div class="topbar-actions">
+          <span class="user-pill"><span class="avatar">S</span> <span data-user-name>Student User</span></span>
+          <button id="openModalBtn" class="btn">Add asset</button>
+        </div>
+      </header>
+
+      <section class="grid cards-4">
+        <article class="card">
+          <div class="metric-label">Total invested</div>
+          <div class="metric-number" data-summary="totalInvestment">$0.00</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Market value</div>
+          <div class="metric-number" data-summary="marketValue">$0.00</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Net result</div>
+          <div class="metric-number" data-summary="totalProfit">$0.00</div>
+        </article>
+        <article class="card">
+          <div class="metric-label">Average return</div>
+          <div class="metric-number" data-summary="averageReturn">0.00%</div>
+        </article>
+      </section>
+
+      <section class="table-card" style="margin-top: 20px;">
+        <div class="table-head">
+          <div>
+            <div class="metric-label">Search and filter</div>
+            <h3 class="table-title">Asset records</h3>
+          </div>
+          <div class="filters">
+            <input id="searchInput" class="input" type="text" placeholder="Search asset or ticker" style="min-width: 240px;">
+            <select id="categoryFilter" class="select" style="min-width: 180px;">
+              <option value="">All categories</option>
+              <option value="TECHNOLOGY">Technology</option>
+              <option value="FINANCIAL">Financial</option>
+              <option value="HEALTHCARE">Healthcare</option>
+              <option value="AUTOMOTIVE">Automotive</option>
+              <option value="ETF">ETF</option>
+              <option value="ENERGY">Energy</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Asset</th>
+                <th>Ticker</th>
+                <th>Category</th>
+                <th>Qty</th>
+                <th>Buy Price</th>
+                <th>Current Price</th>
+                <th>Return</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="trackerTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="assetModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="section-head">
+        <div>
+          <div class="metric-label">Portfolio form</div>
+          <h3 id="modalTitle" class="table-title">Add new asset</h3>
+        </div>
+        <button id="closeModalBtn" class="btn-ghost">Close</button>
+      </div>
+
+      <form id="assetForm" class="modal-grid">
+        <div class="form-group">
+          <label for="assetName">Asset name</label>
+          <input id="assetName" class="input" type="text" placeholder="Apple Inc." required>
+        </div>
+        <div class="form-group">
+          <label for="tickerSymbol">Ticker symbol</label>
+          <input id="tickerSymbol" class="input" type="text" maxlength="10" placeholder="AAPL" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category</label>
+          <select id="category" class="select" required>
+            <option value="TECHNOLOGY">Technology</option>
+            <option value="FINANCIAL">Financial</option>
+            <option value="HEALTHCARE">Healthcare</option>
+            <option value="AUTOMOTIVE">Automotive</option>
+            <option value="ETF">ETF</option>
+            <option value="ENERGY">Energy</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="riskLevel">Risk level</label>
+          <select id="riskLevel" class="select" required>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input id="quantity" class="input" type="number" min="1" step="1" required>
+        </div>
+        <div class="form-group">
+          <label for="buyPrice">Buy price</label>
+          <input id="buyPrice" class="input" type="number" min="0" step="0.01" required>
+        </div>
+        <div class="form-group">
+          <label for="currentPrice">Current price</label>
+          <input id="currentPrice" class="input" type="number" min="0" step="0.01" required>
+        </div>
+        <div class="form-group full-span">
+          <label for="notes">Notes</label>
+          <textarea id="notes" class="textarea" rows="4" placeholder="Optional note about strategy or comments"></textarea>
+        </div>
+        <div class="full-span split">
+          <button id="cancelModalBtn" type="button" class="btn-secondary">Cancel</button>
+          <button type="submit" class="btn">Save asset</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
